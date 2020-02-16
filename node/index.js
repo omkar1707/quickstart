@@ -240,7 +240,7 @@ app.get('/assets', function(request, response, next) {
   // Report. All fields are optional.
   var options = {
     client_report_id: 'Custom Report ID #123',
-    // webhook: 'https://your-domain.tld/plaid-webhook',
+    webhook: 'https://elda08wew4.execute-api.us-east-1.amazonaws.com/dev/webhook',
     user: {
       client_user_id: 'Custom User ID #456',
       first_name: 'Alice',
