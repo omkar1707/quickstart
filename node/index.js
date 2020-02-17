@@ -7,6 +7,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var moment = require('moment');
 var plaid = require('plaid');
+var request = require('sync-request');
 
 var APP_PORT = envvar.number('APP_PORT', 8000);
 var PLAID_CLIENT_ID = envvar.string('PLAID_CLIENT_ID');
@@ -103,6 +104,19 @@ app.post('/get_access_token', function(request, response, next) {
     ACCESS_TOKEN = tokenResponse.access_token;
     ITEM_ID = tokenResponse.item_id;
     prettyPrintResponse(tokenResponse);
+
+    //send to backend
+    var post_data = {
+      "item_id": ITEM_ID,
+      "access_token": ACCESS_TOKEN
+    };
+    var res = request('POST', 'https://elda08wew4.execute-api.us-east-1.amazonaws.com/dev/item_access_token', {
+      json: post_data,
+    });
+    var out = JSON.parse(res.getBody('utf8'));
+    console.log(out);
+
+
     response.json({
       access_token: ACCESS_TOKEN,
       item_id: ITEM_ID,
