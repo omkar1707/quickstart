@@ -108,15 +108,15 @@ app.post('/get_access_token', function(request, response, next) {
     //send to backend
     var post_data = {
       "item_id": ITEM_ID,
-      "access_token": ACCESS_TOKEN
+      "access_token": ACCESS_TOKEN,
+      "user_id" : "c92b7762-6d1d-4dac-8350-0a2097a82a62",
+      "group_id" : "7b145904-9991-43cd-a1b7-f77ead443419"
     };
     var res = syncrequest('POST', 'https://elda08wew4.execute-api.us-east-1.amazonaws.com/dev/item_access_token', {
       json: post_data,
     });
     var out = JSON.parse(res.getBody('utf8'));
     console.log(out);
-
-
     response.json({
       access_token: ACCESS_TOKEN,
       item_id: ITEM_ID,
